@@ -73,7 +73,7 @@ This module has been tested on:
 
 ### Running tests
 
-The STNS puppet module contains tests for both [rspec-puppet](http://rspec-puppet.com/)http://rspec-puppet.com/) (unit tests) and [beaker-rspec](https://github.com/puppetlabs/beaker-rspec) (acceptance tests) to verify functionality. For detailed information on using these tools, please see their respective documentation.
+The STNS puppet module contains tests for both [rspec-puppet](http://rspec-puppet.com/) (unit tests) and [beaker-rspec](https://github.com/puppetlabs/beaker-rspec) (acceptance tests) to verify functionality. For detailed information on using these tools, please see their respective documentation.
 
 #### Testing quickstart
 
