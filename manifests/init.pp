@@ -1,4 +1,4 @@
-# Class: mariadb-repo
+# Class: mariadb_repo
 # ===========================
 #
 # Configure the MariaDB repository for RHel and import the GPG keys.
@@ -16,11 +16,11 @@
 # --------
 #
 # @example
-#    class { 'mariadb-repo':
+#    class { 'mariadb_repo':
 #      mariadb101_enabled  => 1,
 #    }
 #
-class mariadb-repo (
+class mariadb_repo (
   $ensure                                = present,
   $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
   $use_epel                              = true,
@@ -64,7 +64,7 @@ class mariadb-repo (
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
-    class { 'mariadb-repo::rpm_gpg_key':
+    class { 'mariadb_repo::rpm_gpg_key':
       ensure => $ensure,
       path   => $path,
     }
@@ -72,7 +72,7 @@ class mariadb-repo (
     Yumrepo {
       gpgcheck => 1,
       gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
-      require  => Class['mariadb-repo::rpm_gpg_key'],
+      require  => Class['mariadb_repo::rpm_gpg_key'],
     }
 
     yumrepo {

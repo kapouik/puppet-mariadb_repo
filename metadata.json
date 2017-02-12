@@ -1,12 +1,12 @@
 {
-  "name": "kapouik-mariadb-repo",
+  "name": "kapouik-mariadb_repo",
   "version": "1.0.0",
   "author": "kapouik",
   "summary": "Configure the mariadb repository for RHel and import the GPG keys.",
   "license": "MIT",
-  "source": "https://github.com/kapouik/puppet-mariadb-repo",
-  "project_page": "https://github.com/kapouik/puppet-mariadb-repo",
-  "issues_url": "https://github.com/kapouik/puppet-mariadb-repo/issues",
+  "source": "https://github.com/kapouik/puppet-mariadb_repo",
+  "project_page": "https://github.com/kapouik/puppet-mariadb_repo",
+  "issues_url": "https://github.com/kapouik/puppet-mariadb_repo/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",

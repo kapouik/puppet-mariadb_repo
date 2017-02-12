@@ -3,8 +3,8 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with mariadb-repo](#setup)
-    * [Beginning with mariadb-repo](#beginning-with-mariadb-repo)
+1. [Setup - The basics of getting started with mariadb_repo](#setup)
+    * [Beginning with mariadb_repo](#beginning-with-mariadb_repo)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -17,20 +17,20 @@ This module configure [MariaDB's RPM repository](http://downloads.mariadb.org/ma
 
 ## Setup
 
-### Beginning with mariadb-repo
+### Beginning with mariadb_repo
 
-To configure the MariaDB repository with default parameters, declare the `mariadb-repo` class.
+To configure the MariaDB repository with default parameters, declare the `mariadb_repo` class.
 
 ```puppet
-include mariadb-repo
+include mariadb_repo
 ```
 
 ## Usage
 
-### Configuring mariadb-repo
+### Configuring mariadb_repo
 
 ```puppet
-class { 'mariadb-repo':
+class { 'mariadb_repo':
   mariadb101_enabled  => 1,
 }
 ```
@@ -39,7 +39,7 @@ class { 'mariadb-repo':
 
 ```yaml
 ---
-mariadb-repo::mariadb101_enabled: 1
+mariadb_repo::mariadb101_enabled: 1
 ```
 
 ## Reference
@@ -48,15 +48,15 @@ mariadb-repo::mariadb101_enabled: 1
 
 #### Public Classes
 
-- [`mariadb-repo`](#mariadb-repo):  Configure the MariaDB repository and import the GPG keys.
+- [`mariadb_repo`](#mariadb_repo):  Configure the MariaDB repository and import the GPG keys.
 
 #### Private Classes
 
-- `mariadb-repo::rpm_gpg_key`: Import the RPM GPG key for the MariaDB.
+- `mariadb_repo::rpm_gpg_key`: Import the RPM GPG key for the MariaDB.
 
 ### Parameters
 
-#### mariadb-repo
+#### mariadb_repo
 
 - `ensure`: Whether the RPM-GPG-KEY-MariaDB file should exist. Default to present.
 - `path`: The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path. Default to '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB'.

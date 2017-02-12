@@ -1,4 +1,4 @@
-# Class: mariadb-repo::rpm_gpg_key
+# Class: mariadb_repo::rpm_gpg_key
 # ===========================
 #
 # Import the RPM GPG key for the MariaDB repository.
@@ -14,7 +14,7 @@
 # * `path`
 # The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
 #
-class mariadb-repo::rpm_gpg_key (
+class mariadb_repo::rpm_gpg_key (
   $ensure = present,
   $path   = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
 ){
@@ -24,8 +24,8 @@ class mariadb-repo::rpm_gpg_key (
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    source => 'puppet:///modules/mariadb-repo/RPM-GPG-KEY-MariaDB',
-    before => Exec['import-mariadb-repo'],
+    source => 'puppet:///modules/mariadb_repo/RPM-GPG-KEY-MariaDB',
+    before => Exec['import-mariadb_repo'],
   }
 
   exec { 'import-mariadb-repo':

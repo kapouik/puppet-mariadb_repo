@@ -2,4 +2,4 @@ fixtures:
   forge_modules:
     stdlib: "puppetlabs/stdlib"
   symlinks:
-    mariadb-repo: "#{source_dir}"
+    mariadb_repo: "#{source_dir}"

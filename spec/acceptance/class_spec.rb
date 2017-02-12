@@ -1,9 +1,9 @@
 require 'spec_helper_acceptance'
 
-describe 'mariadb-repo class' do
+describe 'mariadb_repo class' do
   let(:manifest) do
     <<-EOS
-    require 'mariadb-repo'
+    require 'mariadb_repo'
 
     package { 'MariaDB-client':
       ensure          => installed,
