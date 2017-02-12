@@ -56,9 +56,10 @@ class mariadb_repo (
       path   => $path,
     }
     $os = $::operatingsystem ? {
-      'RedHat' => 'rhel',
-      'CentOS' => 'centos',
-      'Fedora' => 'fedora',
+      'RedHat'     => 'rhel',
+      'CentOS'     => 'centos',
+      'Scientific' => 'scientific',
+      'Fedora'     => 'fedora',
     }
 
     $arch = $::architecture ? {
