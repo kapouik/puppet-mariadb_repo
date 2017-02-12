@@ -33,11 +33,11 @@ class mariadb_repo (
 
   $arch = $::architecture ? {
     'i386'   => 'x86',
-	'i686'   => 'x86',
+    'i686'   => 'x86',
     'x86_64' => 'amd64',
     default  => $::architecture,
   }
-  
+
   $mariadb55_baseurl                     = "http://yum.mariadb.org/5.5/${os}${::operatingsystemmajrelease}-${arch}",
   $mariadb55_mirrorlist                  = absent,
   $mariadb55_enabled                     = 0,
