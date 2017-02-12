@@ -25,38 +25,25 @@ class mariadb_repo (
   $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
   $use_epel                              = true,
 
-  $os = $::operatingsystem ? {
-    'RedHat' => 'rhel',
-    'CentOS' => 'centos',
-    'Fedora' => 'fedora',
-  }
-
-  $arch = $::architecture ? {
-    'i386'   => 'x86',
-    'i686'   => 'x86',
-    'x86_64' => 'amd64',
-    default  => $::architecture,
-  }
-
-  $mariadb55_baseurl                     = "http://yum.mariadb.org/5.5/${os}${::operatingsystemmajrelease}-${arch}",
+  $mariadb55_baseurl                     = "http://yum.mariadb.org/5.5",
   $mariadb55_mirrorlist                  = absent,
   $mariadb55_enabled                     = 0,
   $mariadb55_includepkgs                 = undef,
   $mariadb55_exclude                     = undef,
 
-  $mariadb10_baseurl                     = "http://yum.mariadb.org/10.0/${os}${::operatingsystemmajrelease}-${arch}",
+  $mariadb10_baseurl                     = "http://yum.mariadb.org/10.0",
   $mariadb10_mirrorlist                  = absent,
   $mariadb10_enabled                     = 0,
   $mariadb10_includepkgs                 = undef,
   $mariadb10_exclude                     = undef,
 
-  $mariadb101_baseurl                    = "http://yum.mariadb.org/10.0/${os}${::operatingsystemmajrelease}-${arch}",
+  $mariadb101_baseurl                    = "http://yum.mariadb.org/10.1",
   $mariadb101_mirrorlist                 = absent,
   $mariadb101_enabled                    = 0,
   $mariadb101_includepkgs                = undef,
   $mariadb101_exclude                    = undef,
 
-  $mariadb102_baseurl                    = "http://yum.mariadb.org/10.0/${os}${::operatingsystemmajrelease}-${arch}",
+  $mariadb102_baseurl                    = "http://yum.mariadb.org/10.2",
   $mariadb102_mirrorlist                 = absent,
   $mariadb102_enabled                    = 0,
   $mariadb102_includepkgs                = undef,
@@ -68,8 +55,20 @@ class mariadb_repo (
       ensure => $ensure,
       path   => $path,
     }
+    $os = $::operatingsystem ? {
+      'RedHat' => 'rhel',
+      'CentOS' => 'centos',
+      'Fedora' => 'fedora',
+    }
 
-    Yumrepo {
+    $arch = $::architecture ? {
+      'i386'   => 'x86',
+      'i686'   => 'x86',
+      'x86_64' => 'amd64',
+      default  => $::architecture,
+    }
+
+	Yumrepo {
       gpgcheck => 1,
       gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
       require  => Class['mariadb_repo::rpm_gpg_key'],
@@ -78,7 +77,7 @@ class mariadb_repo (
     yumrepo {
       'mariadb55':
         descr       => "MariaDB 5.5 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => $mariadb55_baseurl,
+        baseurl     => "${mariadb55_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
         mirrorlist  => $mariadb55_mirrorlist,
         enabled     => $mariadb55_enabled,
         includepkgs => $mariadb55_includepkgs,
@@ -86,7 +85,7 @@ class mariadb_repo (
 
       'mariadb10':
         descr       => "MariaDB 10.0 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => $mariadb10_baseurl,
+        baseurl     => "${mariadb10_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
         mirrorlist  => $mariadb10_mirrorlist,
         enabled     => $mariadb10_enabled,
         includepkgs => $mariadb10_includepkgs,
@@ -94,7 +93,7 @@ class mariadb_repo (
 
       'mariadb101':
         descr       => "MariaDB 10.1 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => $mariadb101_baseurl,
+        baseurl     => "${mariadb101_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
         mirrorlist  => $mariadb101_mirrorlist,
         enabled     => $mariadb101_enabled,
         includepkgs => $mariadb101_includepkgs,
@@ -102,7 +101,7 @@ class mariadb_repo (
 
       'mariadb102':
         descr       => "MariaDB 10.2 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => $mariadb102_baseurl,
+        baseurl     => "${mariadb102_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
         mirrorlist  => $mariadb102_mirrorlist,
         enabled     => $mariadb102_enabled,
         includepkgs => $mariadb102_includepkgs,
