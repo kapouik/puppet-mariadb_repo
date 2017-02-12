@@ -28,7 +28,7 @@ class mariadb_repo::rpm_gpg_key (
     before => Exec['import-mariadb_repo'],
   }
 
-  exec { 'import-mariadb-repo':
+  exec { 'import-mariadb_repo':
     command => "rpm --import ${path}",
     path    => ['/bin', '/usr/bin'],
     unless  => "rpm -q gpg-pubkey-$(gpg --throw-keyids ${path} | grep pub | cut -c 12-19 | tr '[A-Z]' '[a-z]')",

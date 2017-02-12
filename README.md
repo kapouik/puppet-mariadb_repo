@@ -1,4 +1,4 @@
-# puppet-mariadb-repo
+# puppet-mariadb_repo
 
 #### Table of Contents
 
