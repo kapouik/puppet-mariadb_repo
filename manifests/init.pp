@@ -48,6 +48,12 @@ class mariadb_repo (
   $mariadb102_enabled                    = 0,
   $mariadb102_includepkgs                = undef,
   $mariadb102_exclude                    = undef,
+
+  $mariadb103_baseurl                    = 'http://yum.mariadb.org/10.3',
+  $mariadb103_mirrorlist                 = absent,
+  $mariadb103_enabled                    = 0,
+  $mariadb103_includepkgs                = undef,
+  $mariadb103_exclude                    = undef,
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
@@ -107,6 +113,14 @@ class mariadb_repo (
         enabled     => $mariadb102_enabled,
         includepkgs => $mariadb102_includepkgs,
         exclude     => $mariadb102_exclude;
+
+      'mariadb102':
+        descr       => "MariaDB 10.3 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
+        baseurl     => "${mariadb103_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mariadb103_mirrorlist,
+        enabled     => $mariadb103_enabled,
+        includepkgs => $mariadb103_includepkgs,
+        exclude     => $mariadb103_exclude;
     }
   } else {
     notice("This MariaDB module does not support ${::operatingsystem}.")
