@@ -1,3 +1,8 @@
+Release 1.0.3 (2017/05/06)
+---
+
+- Re upload to Puppet Forge
+
 Release 1.0.2 (2017/05/06)
 ---
 
