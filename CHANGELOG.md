@@ -1,7 +1,7 @@
 Release 1.0.2 (2017/05/06)
 ---
 
-- Renew GPG key
+- Add support for mariadb 10.3
 
 Release 1.0.1 (2017/02/28)
 ---
