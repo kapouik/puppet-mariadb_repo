@@ -114,7 +114,7 @@ class mariadb_repo (
         includepkgs => $mariadb102_includepkgs,
         exclude     => $mariadb102_exclude;
 
-      'mariadb102':
+      'mariadb103':
         descr       => "MariaDB 10.3 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
         baseurl     => "${mariadb103_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
         mirrorlist  => $mariadb103_mirrorlist,
