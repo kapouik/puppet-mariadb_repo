@@ -37,7 +37,8 @@ class { 'mariadb_repo':
 
 Can support following versions:
 
-```5.5  => 55
+```
+5.5  => 55
 10.0 => 10
 10.1 => 101
 10.2 => 102
