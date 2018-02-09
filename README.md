@@ -31,15 +31,23 @@ include mariadb_repo
 
 ```puppet
 class { 'mariadb_repo':
-  mariadb101_enabled  => 1,
+  version  => 101,
 }
 ```
+
+Can support following versions:
+
+5.5  => 55
+10.0 => 10
+10.1 => 101
+10.2 => 102
+10.3 => 103
 
 ### Configuring modules from Hiera
 
 ```yaml
 ---
-mariadb_repo::mariadb101_enabled: 1
+mariadb_repo::version: 101
 ```
 
 ## Reference

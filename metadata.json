@@ -1,6 +1,6 @@
 {
   "name": "kapouik-mariadb_repo",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "author": "kapouik",
   "summary": "Configure the mariadb repository for RHel and import the GPG keys.",
   "license": "MIT",

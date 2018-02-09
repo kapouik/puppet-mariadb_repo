@@ -17,43 +17,17 @@
 #
 # @example
 #    class { 'mariadb_repo':
-#      mariadb101_enabled  => 1,
+#      version => 101,
 #    }
 #
 class mariadb_repo (
   $ensure                                = present,
   $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
-  $use_epel                              = true,
-
-  $mariadb55_baseurl                     = 'http://yum.mariadb.org/5.5',
-  $mariadb55_mirrorlist                  = absent,
-  $mariadb55_enabled                     = 0,
-  $mariadb55_includepkgs                 = undef,
-  $mariadb55_exclude                     = undef,
-
-  $mariadb10_baseurl                     = 'http://yum.mariadb.org/10.0',
-  $mariadb10_mirrorlist                  = absent,
-  $mariadb10_enabled                     = 0,
-  $mariadb10_includepkgs                 = undef,
-  $mariadb10_exclude                     = undef,
-
-  $mariadb101_baseurl                    = 'http://yum.mariadb.org/10.1',
-  $mariadb101_mirrorlist                 = absent,
-  $mariadb101_enabled                    = 0,
-  $mariadb101_includepkgs                = undef,
-  $mariadb101_exclude                    = undef,
-
-  $mariadb102_baseurl                    = 'http://yum.mariadb.org/10.2',
-  $mariadb102_mirrorlist                 = absent,
-  $mariadb102_enabled                    = 0,
-  $mariadb102_includepkgs                = undef,
-  $mariadb102_exclude                    = undef,
-
-  $mariadb103_baseurl                    = 'http://yum.mariadb.org/10.3',
-  $mariadb103_mirrorlist                 = absent,
-  $mariadb103_enabled                    = 0,
-  $mariadb103_includepkgs                = undef,
-  $mariadb103_exclude                    = undef,
+  $baseurl                               = 'http://yum.mariadb.org',
+  $mirrorlist                            = absent,
+  $includepkgs                           = undef,
+  $exclude                               = undef,
+  $version                               = undef,
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
@@ -75,6 +49,33 @@ class mariadb_repo (
       default  => $::architecture,
     }
 
+    case $version {
+      55: {
+        $mariadb55_enabled = 1
+      }
+      10: {
+        $mariadb10_enabled = 1
+      }
+      101: {
+        $mariadb101_enabled = 1
+      }
+      102: {
+        $mariadb102_enabled = 1
+      }
+      103: {
+        $mariadb103_enabled = 1
+      }
+      default: {
+        fail("MariaDB is not supported on version ${version}")
+      }
+    }
+
+    if $mariadb55_enabled == unset { $mariadb55_enabled = 0 }
+    if $mariadb10_enabled == unset { $mariadb10_enabled = 0 }
+    if $mariadb101_enabled == unset { $mariadb101_enabled = 0 }
+    if $mariadb102_enabled == unset { $mariadb102_enabled = 0 }
+    if $mariadb103_enabled == unset { $mariadb103_enabled = 0 }
+
     Yumrepo {
       gpgcheck => 1,
       gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
@@ -84,43 +85,43 @@ class mariadb_repo (
     yumrepo {
       'mariadb55':
         descr       => "MariaDB 5.5 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${mariadb55_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mariadb55_mirrorlist,
+        baseurl     => "${baseurl}/5.5/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
         enabled     => $mariadb55_enabled,
-        includepkgs => $mariadb55_includepkgs,
-        exclude     => $mariadb55_exclude;
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
 
       'mariadb10':
         descr       => "MariaDB 10.0 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${mariadb10_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mariadb10_mirrorlist,
+        baseurl     => "${baseurl}/10.0/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
         enabled     => $mariadb10_enabled,
-        includepkgs => $mariadb10_includepkgs,
-        exclude     => $mariadb10_exclude;
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
 
       'mariadb101':
         descr       => "MariaDB 10.1 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${mariadb101_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mariadb101_mirrorlist,
+        baseurl     => "${baseurl}/10.1/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
         enabled     => $mariadb101_enabled,
-        includepkgs => $mariadb101_includepkgs,
-        exclude     => $mariadb101_exclude;
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
 
       'mariadb102':
         descr       => "MariaDB 10.2 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${mariadb102_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mariadb102_mirrorlist,
+        baseurl     => "${baseurl}/10.2/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
         enabled     => $mariadb102_enabled,
-        includepkgs => $mariadb102_includepkgs,
-        exclude     => $mariadb102_exclude;
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
 
       'mariadb103':
         descr       => "MariaDB 10.3 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${mariadb103_baseurl}/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mariadb103_mirrorlist,
+        baseurl     => "${baseurl}/10.3/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
         enabled     => $mariadb103_enabled,
-        includepkgs => $mariadb103_includepkgs,
-        exclude     => $mariadb103_exclude;
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
     }
   } else {
     notice("This MariaDB module does not support ${::operatingsystem}.")
