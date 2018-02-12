@@ -66,7 +66,7 @@ class mariadb_repo (
         $mariadb103_enabled = 1
       }
       default: {
-        Notice("MariaDB is not supported on version ${version}")
+        notice("MariaDB is not supported on version ${version}")
       }
     }
 
