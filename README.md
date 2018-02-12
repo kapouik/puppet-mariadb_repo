@@ -31,14 +31,14 @@ include mariadb_repo
 
 ```puppet
 class { 'mariadb_repo':
-  version  => 101,
+  version  => '101',
 }
 ```
 
 Can support following versions:
 
 ```
-5.5  => 55
+5.5  => 55 (default)
 10.0 => 10
 10.1 => 101
 10.2 => 102
@@ -49,7 +49,7 @@ Can support following versions:
 
 ```yaml
 ---
-mariadb_repo::version: 101
+mariadb_repo::version: '101'
 ```
 
 ## Reference

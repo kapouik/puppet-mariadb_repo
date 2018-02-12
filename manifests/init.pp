@@ -27,7 +27,8 @@ class mariadb_repo (
   $mirrorlist                            = absent,
   $includepkgs                           = undef,
   $exclude                               = undef,
-  $version                               = undef,
+  $version                               = '55',
+  
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
@@ -50,23 +51,43 @@ class mariadb_repo (
     }
 
     case $version {
-      55: {
-        $mariadb55_enabled = 1
+      '55': {
+        $mariadb55_enabled  = 1
+        $mariadb10_enabled  = 0
+        $mariadb101_enabled = 0
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
       }
-      10: {
-        $mariadb10_enabled = 1
+      '10': {
+        $mariadb55_enabled  = 0
+        $mariadb10_enabled  = 1
+        $mariadb101_enabled = 0
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
       }
-      101: {
+      '101': {
+        $mariadb55_enabled  = 0
+        $mariadb10_enabled  = 0
         $mariadb101_enabled = 1
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
       }
-      102: {
+      '102': {
+        $mariadb55_enabled  = 0
+        $mariadb10_enabled  = 0
+        $mariadb101_enabled = 0
         $mariadb102_enabled = 1
+        $mariadb103_enabled = 0
       }
-      103: {
+      '103': {
+        $mariadb55_enabled  = 0
+        $mariadb10_enabled  = 0
+        $mariadb101_enabled = 0
+        $mariadb102_enabled = 0
         $mariadb103_enabled = 1
       }
       default: {
-        notice("MariaDB is not supported on version ${version}")
+        fail("MariaDB is not supported on version ${version}")
       }
     }
 
