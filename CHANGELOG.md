@@ -1,3 +1,8 @@
+Release 1.1.1 (2018/02/13)
+---
+
+- lint correction
+
 Release 1.1.0 (2018/02/09)
 ---
 
