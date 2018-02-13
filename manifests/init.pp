@@ -28,7 +28,6 @@ class mariadb_repo (
   $includepkgs                           = undef,
   $exclude                               = undef,
   $version                               = '55',
-  
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
