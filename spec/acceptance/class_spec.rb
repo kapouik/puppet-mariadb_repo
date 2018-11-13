@@ -35,6 +35,8 @@ describe 'mariadb_repo class' do
     MariaDB100
     MariaDB101
     MariaDB102
+    MariaDB103
+    MariaDB104
   ).each do |repo|
     describe yumrepo(repo) do
       it { should exist }

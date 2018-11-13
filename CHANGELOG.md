@@ -1,3 +1,9 @@
+Release 1.2.0 (2018/11/14)
+---
+
+- Add support for MariaDB 10.4
+- Delete support for rhel5
+
 Release 1.1.1 (2018/02/13)
 ---
 

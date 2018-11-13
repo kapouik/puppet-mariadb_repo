@@ -43,6 +43,7 @@ Can support following versions:
 10.1 => 101
 10.2 => 102
 10.3 => 103
+10.4 => 104
 ```
 
 ### Configuring modules from Hiera
@@ -75,9 +76,9 @@ mariadb_repo::version: '101'
 
 This module has been tested on:
 
-- RedHat Enterprise Linux 5, 6, 7
-- CentOS 5, 6, 7
-- Scientific Linux 5, 6, 7
+- RedHat Enterprise Linux 6, 7
+- CentOS 6, 7
+- Scientific Linux 6, 7
 
 ## Development
 

@@ -1,6 +1,6 @@
 {
   "name": "kapouik-mariadb_repo",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "kapouik",
   "summary": "Configure the mariadb repository for RHel and import the GPG keys.",
   "license": "MIT",
@@ -10,14 +10,13 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.0.0 < 5.0.0"
+      "version_requirement": ">= 3.0.0 < 6.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "5.0",
         "6.0",
         "7.0"
       ]
@@ -25,7 +24,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "5.0",
         "6.0",
         "7.0"
       ]
@@ -33,10 +31,15 @@
     {
       "operatingsystem": "Scientific",
       "operatingsystemrelease": [
-        "5.0",
         "6.0",
         "7.0"
       ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 7.0.0"
     }
   ],
   "data_provider": null
