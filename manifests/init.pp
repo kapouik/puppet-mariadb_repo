@@ -110,7 +110,7 @@ class mariadb_repo (
     if $mariadb103_enabled == unset { $mariadb103_enabled = 0 }
     if $mariadb104_enabled == unset { $mariadb104_enabled = 0 }
 
-    Yumrepo {
+    yumrepo {
       gpgcheck => 1,
       gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
       require  => Class['mariadb_repo::rpm_gpg_key'],
