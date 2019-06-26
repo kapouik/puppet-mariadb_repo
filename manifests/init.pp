@@ -111,12 +111,11 @@ class mariadb_repo (
     if $mariadb104_enabled == unset { $mariadb104_enabled = 0 }
 
     yumrepo {
-      gpgcheck => 1,
-      gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
-      require  => Class['mariadb_repo::rpm_gpg_key'],
-    }
+      default:
+        gpgcheck => 1,
+        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
+        require  => Class['mariadb_repo::rpm_gpg_key'];
 
-    yumrepo {
       'mariadb55':
         descr       => "MariaDB 5.5 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
         baseurl     => "${baseurl}/5.5/${os}${::operatingsystemmajrelease}-${arch}",
