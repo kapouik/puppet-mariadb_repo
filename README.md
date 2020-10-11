@@ -44,6 +44,7 @@ Can support following versions:
 10.2 => 102
 10.3 => 103
 10.4 => 104
+10.5 => 105
 ```
 
 ### Configuring modules from Hiera

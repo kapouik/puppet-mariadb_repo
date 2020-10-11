@@ -30,7 +30,7 @@ describe 'mariadb_repo class' do
     it { is_expected.to be_mode 644 }
   end
 
-  ['MariaDB55', 'MariaDB100', 'MariaDB101', 'MariaDB102', 'MariaDB103', 'MariaDB104'].each do |repo|
+  ['MariaDB55', 'MariaDB100', 'MariaDB101', 'MariaDB102', 'MariaDB103', 'MariaDB104', 'MariaDB105'].each do |repo|
     describe yumrepo(repo) do
       it { is_expected.to exist }
       it { is_expected.not_to be_enabled }

@@ -1,3 +1,8 @@
+Release 1.2.1 (2020/10/11)
+---
+
+- Add support for MariaDB 10.5
+
 Release 1.2.0 (2018/11/14)
 ---
 

@@ -57,6 +57,7 @@ class mariadb_repo (
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
       }
       '10': {
         $mariadb55_enabled  = 0
@@ -65,6 +66,7 @@ class mariadb_repo (
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
       }
       '101': {
         $mariadb55_enabled  = 0
@@ -73,6 +75,7 @@ class mariadb_repo (
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
       }
       '102': {
         $mariadb55_enabled  = 0
@@ -81,6 +84,7 @@ class mariadb_repo (
         $mariadb102_enabled = 1
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
       }
       '103': {
         $mariadb55_enabled  = 0
@@ -89,6 +93,7 @@ class mariadb_repo (
         $mariadb102_enabled = 0
         $mariadb103_enabled = 1
         $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
       }
       '104': {
         $mariadb55_enabled  = 0
@@ -97,6 +102,16 @@ class mariadb_repo (
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 1
+        $mariadb105_enabled = 0
+      }
+      '105': {
+        $mariadb55_enabled  = 0
+        $mariadb10_enabled  = 0
+        $mariadb101_enabled = 0
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
+        $mariadb104_enabled = 0
+        $mariadb105_enabled = 1
       }
       default: {
         fail("MariaDB is not supported on version ${version}")
@@ -109,6 +124,7 @@ class mariadb_repo (
     if $mariadb102_enabled == unset { $mariadb102_enabled = 0 }
     if $mariadb103_enabled == unset { $mariadb103_enabled = 0 }
     if $mariadb104_enabled == unset { $mariadb104_enabled = 0 }
+    if $mariadb105_enabled == unset { $mariadb105_enabled = 0 }
 
     yumrepo {
       default:
@@ -161,6 +177,14 @@ class mariadb_repo (
         baseurl     => "${baseurl}/10.4/${os}${::operatingsystemmajrelease}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb104_enabled,
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
+
+      'mariadb105':
+        descr       => "MariaDB 10.5 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
+        baseurl     => "${baseurl}/10.5/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
+        enabled     => $mariadb105_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
     }
