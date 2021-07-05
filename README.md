@@ -89,13 +89,20 @@ The STNS puppet module contains tests for both [rspec-puppet](http://rspec-puppe
 
 #### Testing quickstart
 
-- Unit tests:
+- Unit tests (old way):
 
 ```console
 $ bundle install
 $ bundle exec rake lint
 $ bundle exec rake validate
 $ bundle exec rake spec
+```
+
+- Unit tests (with pdk):
+
+```console
+$ pdk validate --parallel
+$ pdk test unit
 ```
 
 - Acceptance tests:

@@ -1,3 +1,10 @@
+Release 2.0.0 (2021/07/05)
+---
+
+- Upgrade pdk to 2.1.0
+- Add support for MariaDB 10.6
+- Add compatibility for Puppet >= 6
+
 Release 1.2.1 (2020/10/11)
 ---
 

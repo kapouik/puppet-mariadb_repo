@@ -1,0 +1,12 @@
+HOSTS:
+  centos8:
+    platform: el-8-x86_64
+    image: centos:8
+    hypervisor: docker
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      - 'yum -y install gcc tar systemd-container initscripts'
+CONFIG:
+  type: foss
+  masterless: true
+  # log_level: debug
