@@ -31,17 +31,14 @@ include mariadb_repo
 
 ```puppet
 class { 'mariadb_repo':
-  version  => '101',
+  version  => '106',
 }
 ```
 
 Can support following versions:
 
 ```
-5.5  => 55 (default)
-10.0 => 10
-10.1 => 101
-10.2 => 102
+10.2 => 102 (defaults)
 10.3 => 103
 10.4 => 104
 10.5 => 105
@@ -52,7 +49,7 @@ Can support following versions:
 
 ```yaml
 ---
-mariadb_repo::version: '101'
+mariadb_repo::version: '106'
 ```
 
 ## Reference
@@ -78,9 +75,10 @@ mariadb_repo::version: '101'
 
 This module has been tested on:
 
-- RedHat Enterprise Linux 6, 7
-- CentOS 6, 7
-- Scientific Linux 6, 7
+- RedHat Enterprise Linux 7, 8
+- CentOS 7, 8
+- Rocky 8
+- Scientific Linux 7
 
 ## Development
 

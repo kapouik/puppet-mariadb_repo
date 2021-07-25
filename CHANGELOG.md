@@ -1,3 +1,8 @@
+Release 3.0.0 (2021/08/25)
+---
+
+- Remove old MariaDB version
+
 Release 2.0.0 (2021/07/05)
 ---
 

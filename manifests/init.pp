@@ -27,7 +27,7 @@ class mariadb_repo (
   $mirrorlist                            = absent,
   $includepkgs                           = undef,
   $exclude                               = undef,
-  $version                               = '55',
+  $version                               = '102',
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
@@ -51,40 +51,7 @@ class mariadb_repo (
     }
 
     case $version {
-      '55': {
-        $mariadb55_enabled  = 1
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 0
-        $mariadb102_enabled = 0
-        $mariadb103_enabled = 0
-        $mariadb104_enabled = 0
-        $mariadb105_enabled = 0
-        $mariadb106_enabled = 0
-      }
-      '10': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 1
-        $mariadb101_enabled = 0
-        $mariadb102_enabled = 0
-        $mariadb103_enabled = 0
-        $mariadb104_enabled = 0
-        $mariadb105_enabled = 0
-        $mariadb106_enabled = 0
-      }
-      '101': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 1
-        $mariadb102_enabled = 0
-        $mariadb103_enabled = 0
-        $mariadb104_enabled = 0
-        $mariadb105_enabled = 0
-        $mariadb106_enabled = 0
-      }
       '102': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 0
         $mariadb102_enabled = 1
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
@@ -92,9 +59,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
       }
       '103': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 0
         $mariadb102_enabled = 0
         $mariadb103_enabled = 1
         $mariadb104_enabled = 0
@@ -102,9 +66,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
       }
       '104': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 0
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 1
@@ -112,9 +73,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
       }
       '105': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 0
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
@@ -122,9 +80,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
       }
       '106': {
-        $mariadb55_enabled  = 0
-        $mariadb10_enabled  = 0
-        $mariadb101_enabled = 0
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
@@ -136,9 +91,6 @@ class mariadb_repo (
       }
     }
 
-    if $mariadb55_enabled == unset { $mariadb55_enabled = 0 }
-    if $mariadb10_enabled == unset { $mariadb10_enabled = 0 }
-    if $mariadb101_enabled == unset { $mariadb101_enabled = 0 }
     if $mariadb102_enabled == unset { $mariadb102_enabled = 0 }
     if $mariadb103_enabled == unset { $mariadb103_enabled = 0 }
     if $mariadb104_enabled == unset { $mariadb104_enabled = 0 }
@@ -149,30 +101,6 @@ class mariadb_repo (
         gpgcheck => 1,
         gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
         require  => Class['mariadb_repo::rpm_gpg_key'];
-
-      'mariadb55':
-        descr       => "MariaDB 5.5 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/5.5/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mirrorlist,
-        enabled     => $mariadb55_enabled,
-        includepkgs => $includepkgs,
-        exclude     => $exclude;
-
-      'mariadb10':
-        descr       => "MariaDB 10.0 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.0/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mirrorlist,
-        enabled     => $mariadb10_enabled,
-        includepkgs => $includepkgs,
-        exclude     => $exclude;
-
-      'mariadb101':
-        descr       => "MariaDB 10.1 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.1/${os}${::operatingsystemmajrelease}-${arch}",
-        mirrorlist  => $mirrorlist,
-        enabled     => $mariadb101_enabled,
-        includepkgs => $includepkgs,
-        exclude     => $exclude;
 
       'mariadb102':
         descr       => "MariaDB 10.2 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
