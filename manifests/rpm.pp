@@ -1,4 +1,4 @@
-# Class: mariadb_repo
+# Class: mariadb_repo::rpm
 # ===========================
 #
 # Configure the MariaDB repository for RHel and import the GPG keys.
@@ -12,20 +12,36 @@
 # * `path`
 # The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
 #
+# * `baseurl`
+# Mirror where the repo is. Not compatible with mirrorlist.
+#
+# * `mirrorlist`
+# List of mirror where the repo is. Not compatible with baseurl.
+#
+# * `includepkgs`
+# Include packages of this repository, specified by a name
+# or a glob and separated by a comma, in all operations.
+#
+# * `exclude`
+# Exclude packages of this repository, specified by a name
+# or a glob and separated by a comma, from all operations.
+#
+# * `version`
+# Version of MariaDB to use.
+#
 # Examples
 # --------
 #
 # @example
 #    class { 'mariadb_repo':
-#      version => 101,
+#      version => 106,
 #    }
 #
-class mariadb_repo (
+class mariadb_repo::rpm (
   $ensure                                = present,
   $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
   $baseurl                               = 'http://yum.mariadb.org',
   $mirrorlist                            = absent,
-  $mirror                                = 'https://mirror.mva-n.net/mariadb',
   $includepkgs                           = undef,
   $exclude                               = undef,
   $version                               = '102',
@@ -60,7 +76,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
-        $apt_version = '10.2'
       }
       '103': {
         $mariadb102_enabled = 0
@@ -70,7 +85,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
-        $apt_version = '10.3'
       }
       '104': {
         $mariadb102_enabled = 0
@@ -80,7 +94,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
-        $apt_version = '10.4'
       }
       '105': {
         $mariadb102_enabled = 0
@@ -90,7 +103,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
-        $apt_version = '10.5'
       }
       '106': {
         $mariadb102_enabled = 0
@@ -100,7 +112,6 @@ class mariadb_repo (
         $mariadb106_enabled = 1
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
-        $apt_version = '10.6'
       }
       '107': {
         $mariadb102_enabled = 0
@@ -110,7 +121,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 1
         $mariadb108_enabled = 0
-        $apt_version = '10.7'
       }
       '108': {
         $mariadb102_enabled = 0
@@ -120,7 +130,6 @@ class mariadb_repo (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 1
-        $apt_version = '10.8'
       }
       default: {
         fail("MariaDB is not supported on version ${version}")
@@ -183,7 +192,7 @@ class mariadb_repo (
         exclude     => $exclude;
     }
   } else {
-    notice("This MariaDB module does not support ${::operatingsystem}.")
+    notice("mariadb_repo::rpm does not support ${::operatingsystem}.")
   }
 
 }
