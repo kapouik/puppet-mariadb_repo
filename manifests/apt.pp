@@ -41,17 +41,10 @@ class mariadb_repo::apt (
   $ensure                                = present,
   $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
   $mirror                                = 'https://mirror.mva-n.net/mariadb',
-  $version                               = '102',
-){
+  $version                               = '107',
+) {
 
-  if ($::osfamily == 'Debian' {
-
-    $arch = $::architecture ? {
-      'i386'   => 'x86',
-      'i686'   => 'x86',
-      'x86_64' => 'amd64',
-      default  => $::architecture,
-    }
+  if $facts['os']['family'] == 'Debian' {
 
     case $version {
       '102': {
@@ -81,16 +74,16 @@ class mariadb_repo::apt (
     }
 
     apt::source { "MariaDB ${release} repository list":
-      location => "${mirror}/repo/${release}/debian",
+      location => "${mirror}/repo/${release}/${facts['os']['name']}",
       key      => {
         source => $key,
         },
       repos    => 'main',
-      release  => "$facts['os']['distro']['codename'],
+      release  => $facts['os']['distro']['codename'],
     }
 
   } else {
-    notice("mariadb_repo::rpm does not support ${::operatingsystem}.")
+    notice("mariadb_repo::apt does not support ${::operatingsystem}.")
   }
 
 }

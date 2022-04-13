@@ -2,5 +2,6 @@ fixtures:
   forge_modules:
     stdlib: "puppetlabs/stdlib"
     yumrepo_core: "puppetlabs/yumrepo_core"
+    apt: "puppetlabs/apt"
   symlinks:
     mariadb_repo: "#{source_dir}"
