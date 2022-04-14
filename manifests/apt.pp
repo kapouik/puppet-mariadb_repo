@@ -73,8 +73,10 @@ class mariadb_repo::apt (
       }
     }
 
+    $distribution = downcase($facts['os']['name'])
+
     apt::source { "MariaDB-${release}":
-      location => "${mirror}/repo/${release}/${facts['os']['name']}",
+      location => "${mirror}/repo/${release}/${distribution}",
       key      => {
         id     => '177F4010FE56CA3336300305F1656F24C74CD1D8',
         source => $key,
