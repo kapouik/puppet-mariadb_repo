@@ -76,6 +76,7 @@ class mariadb_repo::apt (
     apt::source { "MariaDB ${release} repository list":
       location => "${mirror}/repo/${release}/${facts['os']['name']}",
       key      => {
+        id     => '177F4010FE56CA3336300305F1656F24C74CD1D8',
         source => $key,
         },
       repos    => 'main',
