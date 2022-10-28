@@ -43,9 +43,7 @@ class mariadb_repo::apt (
   $mirror                                = 'https://mirror.mva-n.net/mariadb',
   $version                               = '107',
 ) {
-
   if $facts['os']['family'] == 'Debian' {
-
     case $version {
       '102': {
         $release = '10.2'
@@ -83,13 +81,11 @@ class mariadb_repo::apt (
       key      => {
         id     => '177F4010FE56CA3336300305F1656F24C74CD1D8',
         source => $key,
-        },
+      },
       repos    => 'main',
       release  => $facts['os']['distro']['codename'],
     }
-
   } else {
-    notice("mariadb_repo::apt does not support ${::operatingsystem}.")
+    notice("mariadb_repo::apt does not support ${facts['os']['name']}.")
   }
-
 }

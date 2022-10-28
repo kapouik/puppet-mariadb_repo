@@ -17,8 +17,7 @@
 class mariadb_repo::rpm_gpg_key (
   $ensure = present,
   $path   = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
-){
-
+) {
   file { $path:
     ensure => $ensure,
     owner  => 'root',
@@ -33,5 +32,4 @@ class mariadb_repo::rpm_gpg_key (
     path    => ['/bin', '/usr/bin'],
     unless  => "rpm -q gpg-pubkey-$(gpg --throw-keyids ${path} | grep pub | cut -c 12-19 | tr '[A-Z]' '[a-z]')",
   }
-
 }

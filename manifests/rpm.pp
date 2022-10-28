@@ -45,14 +45,13 @@ class mariadb_repo::rpm (
   $includepkgs                           = undef,
   $exclude                               = undef,
   $version                               = '107',
-){
-
-  if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
+) {
+  if ($facts['os']['family'] == 'RedHat' and $facts['os']['name'] !~ /Fedora|Amazon/) {
     class { 'mariadb_repo::rpm_gpg_key':
       ensure => $ensure,
       path   => $path,
     }
-    $os = $::operatingsystem ? {
+    $os = $facts['os']['name'] ? {
       'RedHat'     => 'rhel',
       'CentOS'     => 'centos',
       'Rocky'      => 'centos',
@@ -60,11 +59,11 @@ class mariadb_repo::rpm (
       'Fedora'     => 'fedora',
     }
 
-    $arch = $::architecture ? {
+    $arch = $facts['os']['architecture'] ? {
       'i386'   => 'x86',
       'i686'   => 'x86',
       'x86_64' => 'amd64',
-      default  => $::architecture,
+      default  => $facts['os']['architecture'],
     }
 
     case $version {
@@ -161,7 +160,6 @@ class mariadb_repo::rpm (
     if $mariadb107_enabled == unset { $mariadb107_enabled = 0 }
     if $mariadb108_enabled == unset { $mariadb108_enabled = 0 }
 
-
     yumrepo {
       default:
         gpgcheck => 1,
@@ -169,70 +167,70 @@ class mariadb_repo::rpm (
         require  => Class['mariadb_repo::rpm_gpg_key'];
 
       'mariadb102':
-        descr       => "MariaDB 10.2 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.2/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.2 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.2/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb102_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb103':
-        descr       => "MariaDB 10.3 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.3/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.3 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.3/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb103_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb104':
-        descr       => "MariaDB 10.4 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.4/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.4 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.4/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb104_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb105':
-        descr       => "MariaDB 10.5 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.5/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.5 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.5/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb105_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb106':
-        descr       => "MariaDB 10.6 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.6/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.6 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.6/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb106_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb107':
-        descr       => "MariaDB 10.7 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.7/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.7 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.7/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb107_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb108':
-        descr       => "MariaDB 10.8 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.8/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.8 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.8/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb108_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
       'mariadb109':
-        descr       => "MariaDB 10.9 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
-        baseurl     => "${baseurl}/10.9/${os}${::operatingsystemmajrelease}-${arch}",
+        descr       => "MariaDB 10.9 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.9/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb109_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
     }
   } else {
-    notice("mariadb_repo::rpm does not support ${::operatingsystem}.")
+    notice("mariadb_repo::rpm does not support ${facts['os']['name']}.")
   }
 }

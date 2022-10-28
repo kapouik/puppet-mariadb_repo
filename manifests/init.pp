@@ -30,8 +30,7 @@ class mariadb_repo (
   $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
   $mirror                                = 'https://mirror.mva-n.net/mariadb',
   $version                               = '107',
-){
-
+) {
   if ($facts['os']['family'] == 'RedHat' and $facts['os']['name'] !~ /Fedora|Amazon/) {
     class { 'mariadb_repo::rpm':
       ensure      => $ensure,
@@ -50,7 +49,6 @@ class mariadb_repo (
       version => $version,
     }
   } else {
-    notice("This MariaDB module does not support ${::operatingsystem}.")
+    notice("This MariaDB module does not support ${facts['os']['name']}.")
   }
-
 }
