@@ -1,6 +1,7 @@
-Release 3.0.0 (2021/08/25)
+Release 3.0.0 (2022/10/28)
 ---
 
+- Upgrade pdk to 2.5.0
 - Remove old MariaDB version
 
 Release 2.0.0 (2021/07/05)
