@@ -44,7 +44,7 @@ class mariadb_repo::rpm (
   $mirrorlist                            = absent,
   $includepkgs                           = undef,
   $exclude                               = undef,
-  $version                               = '102',
+  $version                               = '107',
 ){
 
   if ($::osfamily == 'RedHat' and $::operatingsystem !~ /Fedora|Amazon/) {
@@ -76,6 +76,7 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
+        $mariadb109_enabled = 0
       }
       '103': {
         $mariadb102_enabled = 0
@@ -85,6 +86,7 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
+        $mariadb109_enabled = 0
       }
       '104': {
         $mariadb102_enabled = 0
@@ -94,6 +96,7 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
+        $mariadb109_enabled = 0
       }
       '105': {
         $mariadb102_enabled = 0
@@ -103,6 +106,7 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
+        $mariadb109_enabled = 0
       }
       '106': {
         $mariadb102_enabled = 0
@@ -112,6 +116,7 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 1
         $mariadb107_enabled = 0
         $mariadb108_enabled = 0
+        $mariadb109_enabled = 0
       }
       '107': {
         $mariadb102_enabled = 0
@@ -121,6 +126,7 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 1
         $mariadb108_enabled = 0
+        $mariadb109_enabled = 0
       }
       '108': {
         $mariadb102_enabled = 0
@@ -130,6 +136,17 @@ class mariadb_repo::rpm (
         $mariadb106_enabled = 0
         $mariadb107_enabled = 0
         $mariadb108_enabled = 1
+        $mariadb109_enabled = 0
+      }
+      '109': {
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
+        $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
+        $mariadb106_enabled = 0
+        $mariadb107_enabled = 0
+        $mariadb108_enabled = 0
+        $mariadb109_enabled = 1
       }
       default: {
         fail("MariaDB is not supported on version ${version}")
@@ -190,9 +207,32 @@ class mariadb_repo::rpm (
         enabled     => $mariadb106_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
+
+      'mariadb107':
+        descr       => "MariaDB 10.7 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
+        baseurl     => "${baseurl}/10.7/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
+        enabled     => $mariadb107_enabled,
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
+
+      'mariadb108':
+        descr       => "MariaDB 10.8 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
+        baseurl     => "${baseurl}/10.8/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
+        enabled     => $mariadb108_enabled,
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
+
+      'mariadb109':
+        descr       => "MariaDB 10.9 RPM repository for Enterprise Linux ${::operatingsystemmajrelease} - \$basearch",
+        baseurl     => "${baseurl}/10.9/${os}${::operatingsystemmajrelease}-${arch}",
+        mirrorlist  => $mirrorlist,
+        enabled     => $mariadb109_enabled,
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
     }
   } else {
     notice("mariadb_repo::rpm does not support ${::operatingsystem}.")
   }
-
 }

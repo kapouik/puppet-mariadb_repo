@@ -68,6 +68,9 @@ class mariadb_repo::apt (
       '108': {
         $release = '10.8'
       }
+      '109': {
+        $release = '10.9'
+      }
       default: {
         fail("MariaDB is not supported on version ${version}")
       }
