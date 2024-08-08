@@ -1,3 +1,8 @@
+Release 3.0.1 (2024/08/08)
+---
+
+- Update MariaDB repository
+
 Release 3.0.0 (2022/10/28)
 ---
 

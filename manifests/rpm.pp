@@ -73,9 +73,10 @@ class mariadb_repo::rpm (
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
       '103': {
         $mariadb102_enabled = 0
@@ -83,9 +84,10 @@ class mariadb_repo::rpm (
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
       '104': {
         $mariadb102_enabled = 0
@@ -93,9 +95,10 @@ class mariadb_repo::rpm (
         $mariadb104_enabled = 1
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
       '105': {
         $mariadb102_enabled = 0
@@ -103,9 +106,10 @@ class mariadb_repo::rpm (
         $mariadb104_enabled = 0
         $mariadb105_enabled = 1
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
       '106': {
         $mariadb102_enabled = 0
@@ -113,39 +117,54 @@ class mariadb_repo::rpm (
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 1
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
-      '107': {
+      '1011': {
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 1
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 1
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
-      '108': {
+      '111': {
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 1
-        $mariadb109_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 1
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 0
       }
-      '109': {
+      '112': {
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
-        $mariadb107_enabled = 0
-        $mariadb108_enabled = 0
-        $mariadb109_enabled = 1
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 1
+        $mariadb114_enabled = 0
+      }
+      '114': {
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
+        $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
+        $mariadb106_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb111_enabled = 0
+        $mariadb112_enabled = 0
+        $mariadb114_enabled = 1
       }
       default: {
         fail("MariaDB is not supported on version ${version}")
@@ -157,8 +176,10 @@ class mariadb_repo::rpm (
     if $mariadb104_enabled == unset { $mariadb104_enabled = 0 }
     if $mariadb105_enabled == unset { $mariadb105_enabled = 0 }
     if $mariadb106_enabled == unset { $mariadb106_enabled = 0 }
-    if $mariadb107_enabled == unset { $mariadb107_enabled = 0 }
-    if $mariadb108_enabled == unset { $mariadb108_enabled = 0 }
+    if $mariadb1011_enabled == unset { $mariadb1011_enabled = 0 }
+    if $mariadb111_enabled == unset { $mariadb111_enabled = 0 }
+    if $mariadb112_enabled == unset { $mariadb112_enabled = 0 }
+    if $mariadb114_enabled == unset { $mariadb114_enabled = 0 }
 
     yumrepo {
       default:
@@ -206,27 +227,35 @@ class mariadb_repo::rpm (
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
-      'mariadb107':
-        descr       => "MariaDB 10.7 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
-        baseurl     => "${baseurl}/10.7/${os}${facts['os']['release']['major']}-${arch}",
+      'mariadb1011':
+        descr       => "MariaDB 10.11 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/10.11/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
-        enabled     => $mariadb107_enabled,
+        enabled     => $mariadb1011_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
-      'mariadb108':
-        descr       => "MariaDB 10.8 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
-        baseurl     => "${baseurl}/10.8/${os}${facts['os']['release']['major']}-${arch}",
+      'mariadb111':
+        descr       => "MariaDB 11.1 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/11.1/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
-        enabled     => $mariadb108_enabled,
+        enabled     => $mariadb111_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
-      'mariadb109':
-        descr       => "MariaDB 10.9 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
-        baseurl     => "${baseurl}/10.9/${os}${facts['os']['release']['major']}-${arch}",
+      'mariadb112':
+        descr       => "MariaDB 11.2 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/11.2/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
-        enabled     => $mariadb109_enabled,
+        enabled     => $mariadb112_enabled,
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
+
+      'mariadb114':
+        descr       => "MariaDB 11.4 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/11.4/${os}${facts['os']['release']['major']}-${arch}",
+        mirrorlist  => $mirrorlist,
+        enabled     => $mariadb114_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
     }

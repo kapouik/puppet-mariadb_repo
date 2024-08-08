@@ -29,7 +29,7 @@ class mariadb_repo (
   $exclude                               = undef,
   $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
   $mirror                                = 'https://mirror.mva-n.net/mariadb',
-  $version                               = '107',
+  $version                               = '1011',
 ) {
   if ($facts['os']['family'] == 'RedHat' and $facts['os']['name'] !~ /Fedora|Amazon/) {
     class { 'mariadb_repo::rpm':

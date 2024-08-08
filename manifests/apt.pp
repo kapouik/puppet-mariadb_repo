@@ -41,33 +41,27 @@ class mariadb_repo::apt (
   $ensure                                = present,
   $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
   $mirror                                = 'https://mirror.mva-n.net/mariadb',
-  $version                               = '107',
+  $version                               = '1011',
 ) {
   if $facts['os']['family'] == 'Debian' {
     case $version {
-      '102': {
-        $release = '10.2'
-      }
-      '103': {
-        $release = '10.3'
-      }
-      '104': {
-        $release = '10.4'
-      }
       '105': {
         $release = '10.5'
       }
       '106': {
         $release = '10.6'
       }
-      '107': {
-        $release = '10.7'
+      '1011': {
+        $release = '10.11'
       }
-      '108': {
-        $release = '10.8'
+      '111': {
+        $release = '11.1'
       }
-      '109': {
-        $release = '10.9'
+      '112': {
+        $release = '11.2'
+      }
+      '114': {
+        $release = '11.4'
       }
       default: {
         fail("MariaDB is not supported on version ${version}")
