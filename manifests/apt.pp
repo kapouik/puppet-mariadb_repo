@@ -1,47 +1,19 @@
-# Class: mariadb_repo::apt
-# ===========================
+# @summary
+#  Configure the MariaDB repository for RHel and import the GPG keys.
 #
-# Configure the MariaDB repository for RHel and import the GPG keys.
+# @param key
+#   Where to find the GPG key.
 #
-# Parameters
-# ----------
+# @param mirror
+#   Mirror where the repo is.
 #
-# * `ensure`
-# Whether MariaDB's repositories and the RPM-GPG-KEY-MariaDB file should exist.
-#
-# * `path`
-# The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
-#
-# * `baseurl`
-# Mirror where the repo is. Not compatible with mirrorlist.
-#
-# * `mirrorlist`
-# List of mirror where the repo is. Not compatible with baseurl.
-#
-# * `includepkgs`
-# Include packages of this repository, specified by a name
-# or a glob and separated by a comma, in all operations.
-#
-# * `exclude`
-# Exclude packages of this repository, specified by a name
-# or a glob and separated by a comma, from all operations.
-#
-# * `version`
-# Version of MariaDB to use.
-#
-# Examples
-# --------
-#
-# @example
-#    class { 'mariadb_repo':
-#      version => 106,
-#    }
+# @param version
+#   Version of MariaDB to use.
 #
 class mariadb_repo::apt (
-  $ensure                                = present,
-  $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
-  $mirror                                = 'https://mirror.mva-n.net/mariadb',
-  $version                               = '1011',
+  String $key     = 'https://mariadb.org/mariadb_release_signing_key.asc',
+  String $mirror  = 'https://mirror.mva-n.net/mariadb',
+  String $version = '1011',
 ) {
   if $facts['os']['family'] == 'Debian' {
     case $version {
@@ -54,14 +26,14 @@ class mariadb_repo::apt (
       '1011': {
         $release = '10.11'
       }
-      '111': {
-        $release = '11.1'
-      }
-      '112': {
-        $release = '11.2'
+      '113': {
+        $release = '11.3'
       }
       '114': {
         $release = '11.4'
+      }
+      '115': {
+        $release = '11.5'
       }
       default: {
         fail("MariaDB is not supported on version ${version}")

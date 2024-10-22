@@ -1,3 +1,10 @@
+Release 4.0.0 (2024/10/22)
+---
+
+- Update MariaDB repository
+- Upgrade pdk to 3.3.0
+- Rewrite code documentation
+
 Release 3.0.1 (2024/08/08)
 ---
 

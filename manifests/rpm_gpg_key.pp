@@ -1,25 +1,14 @@
-# Class: mariadb_repo::rpm_gpg_key
-# ===========================
+# @summary
+#  Import the RPM GPG key for the MariaDB repository.
 #
-# Import the RPM GPG key for the MariaDB repository.
-#
-# Parameters
-# ----------
-#
-# Document parameters here.
-#
-# * `ensure`
-# Whether the RPM-GPG-KEY-MariaDB file should exist.
-#
-# * `path`
-# The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
+# @param path
+#   The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
 #
 class mariadb_repo::rpm_gpg_key (
-  $ensure = present,
-  $path   = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
+  String $path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
 ) {
   file { $path:
-    ensure => $ensure,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',

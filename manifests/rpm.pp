@@ -1,54 +1,36 @@
-# Class: mariadb_repo::rpm
-# ===========================
+# @summary
+#  Configure the MariaDB repository for RHel and import the GPG keys.
 #
-# Configure the MariaDB repository for RHel and import the GPG keys.
+# @param path
+#   The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
 #
-# Parameters
-# ----------
+# @param baseurl
+#   Mirror where the repo is. Not compatible with mirrorlist.
 #
-# * `ensure`
-# Whether MariaDB's repositories and the RPM-GPG-KEY-MariaDB file should exist.
+# @param mirrorlist
+#   List of mirror where the repo is. Not compatible with baseurl.
 #
-# * `path`
-# The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
+# @param includepkgs
+#   Include packages of this repository, specified by a name
+#   or a glob and separated by a comma, in all operations.
 #
-# * `baseurl`
-# Mirror where the repo is. Not compatible with mirrorlist.
+# @param exclude
+#   Exclude packages of this repository, specified by a name
+#   or a glob and separated by a comma, from all operations.
 #
-# * `mirrorlist`
-# List of mirror where the repo is. Not compatible with baseurl.
-#
-# * `includepkgs`
-# Include packages of this repository, specified by a name
-# or a glob and separated by a comma, in all operations.
-#
-# * `exclude`
-# Exclude packages of this repository, specified by a name
-# or a glob and separated by a comma, from all operations.
-#
-# * `version`
-# Version of MariaDB to use.
-#
-# Examples
-# --------
-#
-# @example
-#    class { 'mariadb_repo':
-#      version => 106,
-#    }
+# @param version
+#   Version of MariaDB to use.
 #
 class mariadb_repo::rpm (
-  $ensure                                = present,
-  $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
-  $baseurl                               = 'http://yum.mariadb.org',
-  $mirrorlist                            = absent,
-  $includepkgs                           = undef,
-  $exclude                               = undef,
-  $version                               = '107',
+  String $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
+  Variant[String, Enum['absent']] $baseurl      = 'http://yum.mariadb.org',
+  Variant[String, Enum['absent']] $mirrorlist   = absent,
+  Optional[Variant[String, Array]] $includepkgs = undef,
+  Optional[Variant[String, Array]] $exclude     = undef,
+  String $version                               = '1011',
 ) {
   if ($facts['os']['family'] == 'RedHat' and $facts['os']['name'] !~ /Fedora|Amazon/) {
     class { 'mariadb_repo::rpm_gpg_key':
-      ensure => $ensure,
       path   => $path,
     }
     $os = $facts['os']['name'] ? {
@@ -74,9 +56,9 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
       '103': {
         $mariadb102_enabled = 0
@@ -85,9 +67,9 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
       '104': {
         $mariadb102_enabled = 0
@@ -96,9 +78,9 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
       '105': {
         $mariadb102_enabled = 0
@@ -107,9 +89,9 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 1
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
       '106': {
         $mariadb102_enabled = 0
@@ -118,9 +100,9 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 0
         $mariadb106_enabled = 1
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
       '1011': {
         $mariadb102_enabled = 0
@@ -129,31 +111,20 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 1
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
-      '111': {
+      '113': {
         $mariadb102_enabled = 0
         $mariadb103_enabled = 0
         $mariadb104_enabled = 0
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 1
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 1
         $mariadb114_enabled = 0
-      }
-      '112': {
-        $mariadb102_enabled = 0
-        $mariadb103_enabled = 0
-        $mariadb104_enabled = 0
-        $mariadb105_enabled = 0
-        $mariadb106_enabled = 0
-        $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 1
-        $mariadb114_enabled = 0
+        $mariadb115_enabled = 0
       }
       '114': {
         $mariadb102_enabled = 0
@@ -162,9 +133,20 @@ class mariadb_repo::rpm (
         $mariadb105_enabled = 0
         $mariadb106_enabled = 0
         $mariadb1011_enabled = 0
-        $mariadb111_enabled = 0
-        $mariadb112_enabled = 0
+        $mariadb113_enabled = 0
         $mariadb114_enabled = 1
+        $mariadb115_enabled = 0
+      }
+      '115': {
+        $mariadb102_enabled = 0
+        $mariadb103_enabled = 0
+        $mariadb104_enabled = 0
+        $mariadb105_enabled = 0
+        $mariadb106_enabled = 0
+        $mariadb1011_enabled = 0
+        $mariadb113_enabled = 0
+        $mariadb114_enabled = 0
+        $mariadb115_enabled = 1
       }
       default: {
         fail("MariaDB is not supported on version ${version}")
@@ -177,9 +159,9 @@ class mariadb_repo::rpm (
     if $mariadb105_enabled == unset { $mariadb105_enabled = 0 }
     if $mariadb106_enabled == unset { $mariadb106_enabled = 0 }
     if $mariadb1011_enabled == unset { $mariadb1011_enabled = 0 }
-    if $mariadb111_enabled == unset { $mariadb111_enabled = 0 }
-    if $mariadb112_enabled == unset { $mariadb112_enabled = 0 }
+    if $mariadb113_enabled == unset { $mariadb113_enabled = 0 }
     if $mariadb114_enabled == unset { $mariadb114_enabled = 0 }
+    if $mariadb115_enabled == unset { $mariadb115_enabled = 0 }
 
     yumrepo {
       default:
@@ -235,19 +217,11 @@ class mariadb_repo::rpm (
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
-      'mariadb111':
-        descr       => "MariaDB 11.1 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
-        baseurl     => "${baseurl}/11.1/${os}${facts['os']['release']['major']}-${arch}",
+      'mariadb113':
+        descr       => "MariaDB 11.3 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/11.3/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
-        enabled     => $mariadb111_enabled,
-        includepkgs => $includepkgs,
-        exclude     => $exclude;
-
-      'mariadb112':
-        descr       => "MariaDB 11.2 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
-        baseurl     => "${baseurl}/11.2/${os}${facts['os']['release']['major']}-${arch}",
-        mirrorlist  => $mirrorlist,
-        enabled     => $mariadb112_enabled,
+        enabled     => $mariadb113_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
 
@@ -256,6 +230,14 @@ class mariadb_repo::rpm (
         baseurl     => "${baseurl}/11.4/${os}${facts['os']['release']['major']}-${arch}",
         mirrorlist  => $mirrorlist,
         enabled     => $mariadb114_enabled,
+        includepkgs => $includepkgs,
+        exclude     => $exclude;
+
+      'mariadb115':
+        descr       => "MariaDB 11.5 RPM repository for Enterprise Linux ${facts['os']['release']['major']} - \$basearch",
+        baseurl     => "${baseurl}/11.5/${os}${facts['os']['release']['major']}-${arch}",
+        mirrorlist  => $mirrorlist,
+        enabled     => $mariadb115_enabled,
         includepkgs => $includepkgs,
         exclude     => $exclude;
     }

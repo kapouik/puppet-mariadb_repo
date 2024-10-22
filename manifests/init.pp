@@ -1,39 +1,44 @@
-# Class: mariadb_repo
-# ===========================
+# @summary
+#  Configure the MariaDB repository for RHel and import the GPG keys.
 #
-# Configure the MariaDB repository for RHel and import the GPG keys.
+# @param path
+#   The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
 #
-# Parameters
-# ----------
+# @param baseurl
+#   Mirror where the repo is. Not compatible with mirrorlist.
 #
-# * `ensure`
-# Whether MariaDB's repositories and the RPM-GPG-KEY-MariaDB file should exist.
+# @param mirrorlist
+#   List of mirror where the repo is. Not compatible with baseurl.
 #
-# * `path`
-# The path to the RPM-GPG-KEY-MariaDB file to manage. Must be an absolute path.
+# @param includepkgs
+#   Include packages of this repository, specified by a name
+#   or a glob and separated by a comma, in all operations.
 #
-# Examples
-# --------
+# @param exclude
+#   Exclude packages of this repository, specified by a name
+#   or a glob and separated by a comma, from all operations.
 #
-# @example
-#    class { 'mariadb_repo':
-#      version => 107,
-#    }
+# @param key
+#   Where to find the GPG key.
+#
+# @param mirror
+#   Mirror where the repo is.
+#
+# @param version
+#   Version of MariaDB to use.
 #
 class mariadb_repo (
-  $ensure                                = present,
-  $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
-  $baseurl                               = 'http://yum.mariadb.org',
-  $mirrorlist                            = absent,
-  $includepkgs                           = undef,
-  $exclude                               = undef,
-  $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
-  $mirror                                = 'https://mirror.mva-n.net/mariadb',
-  $version                               = '1011',
+  String $path                                  = '/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB',
+  Variant[String, Enum['absent']] $baseurl      = 'http://yum.mariadb.org',
+  Variant[String, Enum['absent']] $mirrorlist   = absent,
+  Optional[Variant[String, Array]] $includepkgs = undef,
+  Optional[Variant[String, Array]] $exclude     = undef,
+  String $key                                   = 'https://mariadb.org/mariadb_release_signing_key.asc',
+  String $mirror                                = 'https://mirror.mva-n.net/mariadb',
+  String $version                               = '1011',
 ) {
   if ($facts['os']['family'] == 'RedHat' and $facts['os']['name'] !~ /Fedora|Amazon/) {
     class { 'mariadb_repo::rpm':
-      ensure      => $ensure,
       path        => $path,
       baseurl     => $baseurl,
       mirrorlist  => $mirrorlist,
@@ -43,7 +48,6 @@ class mariadb_repo (
     }
   } elsif $facts['os']['family'] == 'Debian' {
     class { 'mariadb_repo::apt':
-      ensure  => $ensure,
       key     => $key,
       mirror  => $mirror,
       version => $version,
